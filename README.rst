@@ -57,3 +57,8 @@ Instalación (Pip + virtualenv)
     $ python server.py
 
 9. Visitar http://127.0.0.1:8888
+
+Capturas
+--------
+
+.. image:: https://github.com/jorgebastida/pyntas/raw/master/static/screenshot.png
