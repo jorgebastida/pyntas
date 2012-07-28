@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Ekparty Real Time Map</title>
+
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="/static/map.css" type="text/css" media="screen">
+
+    </head>
+    <body>
+        <h1>{{ title }} {% if report == 'on' %} <span class="label label-warning">Reportado a la organización</span> {% end %}</h1>
+        <p>{{ description }}</p>
+        <div id="loading">loading...</div>
+        <div id="map"></div>
+
+    <script src="/static/raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/map.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var sites = {},
+            to_paint = [];
+
+        {% for site in sites %}
+        add_to_paint("{{ site }}");
+        {% end %}
+    </script>
+
+    </body>
+</html>

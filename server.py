@@ -1,10 +1,13 @@
 import os
+import random
+import hashlib
 
 import brukva
 import tornado.httpserver
 import tornado.web
 import tornado.websocket
 import tornado.ioloop
+from tornado.web import asynchronous
 
 import settings
 
@@ -21,8 +24,28 @@ class MainHandler(tornado.web.RequestHandler):
 
 class AddHandler(tornado.web.RequestHandler):
     def post(self):
-        import ipdb;ipdb.set_trace()
-        self.render("index.html")
+        title = self.get_argument('title', '')
+        report = self.get_argument('report', '')
+        selected_sites = self.get_argument('selected_sites', '')
+        description = self.get_argument('description', '')
+        h = hashlib.sha1(str(random.random())).hexdigest()[:5]
+        c.hmset('layer_%s' % h, {'report': report, 'title': title, 'sites': selected_sites, 'description': description})
+        self.redirect('/layer/%s' % h)
+
+
+class ViewLayer(tornado.web.RequestHandler):
+
+    @asynchronous
+    def get(self, layer_hash):
+        data = c.hgetall('layer_%s' % layer_hash, self.process_data)
+
+    def process_data(self, data):
+        if not data:
+            self.write('Not found')
+        else:
+            data['sites'] = data['sites'].split(',')
+            print data
+            self.render("view_layer.html", **data)
 
 
 class MessagesCatcher(tornado.websocket.WebSocketHandler):
@@ -55,6 +78,7 @@ application = tornado.web.Application([
     (r'/', MainHandler),
     (r'/track', MessagesCatcher),
     (r'/add', AddHandler),
+    (r'/layer/(\w+)', ViewLayer),
     (r"/static", tornado.web.StaticFileHandler,
      dict(path=app_settings['static_path'])),
 ], **app_settings)

@@ -2,9 +2,10 @@ Pyntas
 ======
 
 Proyecto participante en el FOSS de la Euskal Encounter 20 realizado en aproximadamente 12h.
-Autor: Jorge Bastida
-Email: me@jorgebastida.com
-Sitio: AO-40
+
+* Autor: Jorge Bastida
+* Email: me@jorgebastida.com
+* Sitio: AO-40
 
 Tecnología utilizada
 --------------------

@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Ekparty Real Time Map</title>
 
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="static/map.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="/static/map.css" type="text/css" media="screen">
 
     </head>
     <body>
@@ -13,6 +13,7 @@
 
         <div id="add_tooltip" class="hide alert alert-info" style="margin-top:10px;">Selecciona los sitios que deseas añadir a esta nueva capa y confirma la selección.</div>
 
+        <div id="loading">loading...</div>
         <div id="map"></div>
 
         <div class="toplayers">
@@ -35,6 +36,7 @@
       </div>
       <div class="modal-body">
         <label for="title">Titulo:</label> <input type="text" id="layer_title" name="title" value="">
+        <label for="description">Moar info?</label> <textarea  name="description" id="description"></textarea>
         <label for="report">Infringe las normas de la EK?</label> <input type="checkbox" name="report" id="report">
         <input type="hidden" id="selected_sites" value="" name="selected_sites">
         </form>
@@ -46,10 +48,10 @@
       </form>
     </div>
 
-    <script src="static/raphael.js" type="text/javascript" charset="utf-8"></script>
-    <script src="static/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="static/map.js" type="text/javascript" charset="utf-8"></script>
-    <script src="static/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/map.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
         var sites = {},
             edit_mode = false,
