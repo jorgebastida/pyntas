@@ -51,7 +51,7 @@ Instalación (Pip + virtualenv)
 
 7. Arrancar el Bot de DC::
 
-    $ python dcbot NICK-DEL-BOT
+    $ python dcbot.py NICK-DEL-BOT
 
 8. Arrancar tornado::
 
