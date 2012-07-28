@@ -37,9 +37,11 @@ class ViewLayer(tornado.web.RequestHandler):
 
     @asynchronous
     def get(self, layer_hash):
+
         data = c.hgetall('layer_%s' % layer_hash, self.process_data)
 
     def process_data(self, data):
+        data = data[1]
         if not data:
             self.write('Not found')
         else:
@@ -62,6 +64,7 @@ class MessagesCatcher(tornado.websocket.WebSocketHandler):
 
     def on_message(self, result):
         print "message"
+        result = result[1]
         self.write_message(str(result.body))
 
     def close(self):
