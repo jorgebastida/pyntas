@@ -1,0 +1,33 @@
+body {
+    background: #333;
+    color: #fff;
+    font: 300 100.1% "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+    padding: 20px;
+}
+
+#map{
+    margin-top:20px;
+}
+
+.toplayers{
+    width:500px;
+    float:left;
+    padding:20px;
+    padding-top:0px;
+}
+
+.lastlayers{
+    width:500px;
+    float:left;
+    padding:20px;
+    padding-top:0px;
+}
+
+h2 i{
+    position: relative;
+    top:8px;
+}
+
+.modal{
+    color:#333;
+}

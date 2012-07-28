@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Ekparty Real Time Map</title>
+
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="static/map.css" type="text/css" media="screen">
+
+    </head>
+    <body>
+        <h1>Euskal Encounter Realtime layers &nbsp;&nbsp;&nbsp;&nbsp;<span class="btn btn-primary">Live</span> <span id="add_btn" class="btn" onclick="add_layer();">Crear una nueva capa</span> <span id="confirm_btn" class="hide btn btn-success" onclick="confirm();">Confirmar Sitios</span></h1>
+
+        <div id="add_tooltip" class="hide alert alert-info" style="margin-top:10px;">Selecciona los sitios que deseas añadir a esta nueva capa y confirma la selección.</div>
+
+        <div id="map"></div>
+
+        <div class="toplayers">
+            <h2><i class="icon-fire icon-white"></i> DC messages</h2>
+            <p>
+                <span class="label label-success">Vendo</span>
+                <span class="label label-important">Compro</span>
+                <span class="label label-warning">Necesito / Busco</span>
+            </p>
+            <ul id="last_messages">
+            </ul>
+
+        </div>
+        <div class="lastlayers">
+            <h2><i class="icon-certificate icon-white"></i> Last layers</h2>
+            <ul>
+                <li>TODO</li>
+            </ul>
+        </div>
+
+    <div class="modal hide" id="add_modal">
+      <form action="/add" method="post" id="add_form">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Add a new Layer</h3>
+      </div>
+      <div class="modal-body">
+        <label for="title">Titulo:</label> <input type="text" id="layer_title" name="title" value="">
+        <label for="report">Infringe las normas de la EK?</label> <input type="checkbox" name="report" id="report">
+        <input type="hidden" id="selected_sites" value="" name="selected_sites">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <button type="submit" class="btn btn-primary" onclick="confirm_modal(); return false;">Save changes</button>
+      </div>
+      </form>
+    </div>
+
+    <script src="static/raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="static/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="static/map.js" type="text/javascript" charset="utf-8"></script>
+    <script src="static/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var sites = {},
+            edit_mode = false,
+            add_sites_list = [],
+            ws = new WebSocket("ws://127.0.0.1:8888/track");
+
+        ws.onopen = function() {
+            console.log("Connected...");
+        }
+        ws.onmessage = function(event) {
+            console.log(event.data);
+            var data = JSON.parse(event.data);
+            console.log(data);
+            try{
+                paint(data.site, data.color);
+                $('#last_messages').prepend('<li><b>'+data.user+' ('+data.site+')</b>: ' + data.message + '</li>');
+            }
+            catch(e){
+                console.log('Wrong site ' + data.site);
+            }
+        }
+        ws.onclose = function() {
+            console.log("Closed");
+        }
+    </script>
+
+    </body>
+</html>
